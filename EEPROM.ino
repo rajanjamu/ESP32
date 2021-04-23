@@ -14,8 +14,8 @@
 
 // CONSTANTS
 #define EEPROM_SIZE 64
-String ssidC = "ESP32";
-String passC = "toodlelab";
+const char *ssidC = "ESP32";
+const char *passC = "toodlelab";
 
 // VARIABLES
 String ssidV, passV;  // Ssid & pass read from EEPROM are stored here
@@ -68,17 +68,17 @@ void readEEPROM() {
 // -------- WRITE WIFI SSID AND PASSWORD TO EEPROM --------
 void writeEEPROM() {
   byte addrCounter = 0;  // Address counter
-  EEPROM.write(addrCounter++, ssidC.length());  // Store ssid length
-  EEPROM.write(addrCounter++, passC.length());  // Store pass length
+  EEPROM.write(addrCounter++, strlen(ssidC));  // Store ssid length
+  EEPROM.write(addrCounter++, strlen(passC));  // Store pass length
 
   // Write Wifi SSID
-  for (byte i = 0; i < ssidC.length(); i++) {
+  for (byte i = 0; i < strlen(ssidC); i++) {
     EEPROM.write(i + addrCounter, ssidC[i]);
     addrCounter++;
   }
 
   // Write Wifi Password
-  for (byte i = 0; i < passC.length(); i++) {
+  for (byte i = 0; i < strlen(passC); i++) {
     EEPROM.write(i + addrCounter, passC[i]);
     addrCounter++;
   }
